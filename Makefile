@@ -26,13 +26,13 @@ docker-build:
 	docker build -t go-api:latest . -f Dockerfile.local
 
 docker-up-api:
-	docker-compose up -d go-api --build --force-recreate
+	docker-compose up -d go-api
 
 docker-up-store:
-	docker-compose up -d go-store --build --force-recreate
+	docker-compose up -d go-store
 
 docker-up-orm:
-	docker-compose up -d go-orm --build --force-recreate
+	docker-compose up -d go-orm
 
 docker-down:
 	docker-compose down --rmi all
