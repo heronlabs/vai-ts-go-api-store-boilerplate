@@ -1,0 +1,5 @@
+development:
+  dialect: postgres
+  datasource: dbname=goApiStoreDB host=localhost port=5432 user=root password=root sslmode=disable
+  dir: src/infrastructure/database/migrations
+  table: migrations

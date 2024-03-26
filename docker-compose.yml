@@ -1,0 +1,62 @@
+version: '3'
+services:
+  go-api:
+    container_name: go-api
+    build:
+      context: .
+      dockerfile: ./Dockerfile.local
+    restart: unless-stopped
+    networks:
+      - go-api-store-network
+    environment:
+      API_PORT: 5555
+      DATABASE_HOST: go-store
+      DATABASE_PORT: 5432
+      DATABASE_USERNAME: root
+      DATABASE_PASSWORD: root
+      DATABASE_NAME: goApiStoreDB
+      GIN_MODE: release
+    ports:
+      - 5555:5555
+    depends_on:
+      - go-store
+
+  go-store:
+    container_name: go-store
+    image: postgres:14
+    restart: always
+    environment:
+      POSTGRES_USER: 'root'
+      POSTGRES_PASSWORD: 'root'
+    volumes:
+      - postgres:/var/lib/postgresql/data
+      - ./src/infrastructure/database/scripts/create-database.sql:/docker-entrypoint-initdb.d/create-database.sql
+    ports:
+      - '5432:5432'
+    networks:
+      - go-api-store-network
+
+  go-orm:
+    container_name: go-orm
+    build:
+      context: .
+      dockerfile: ./Dockerfile.orm
+    networks:
+      - go-api-store-network
+    environment:
+      DATABASE_HOST: go-store
+      DATABASE_PORT: 5432
+      DATABASE_USERNAME: root
+      DATABASE_PASSWORD: root
+      DATABASE_NAME: goApiStoreDB
+    depends_on:
+      - go-store
+
+volumes:
+  postgres:
+
+
+networks:
+  go-api-store-network:
+    name: go-api
+    driver: bridge
