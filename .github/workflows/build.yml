@@ -23,6 +23,14 @@ jobs:
         run: make download
         shell: bash
 
+      - name: '[BUILD] | Up Store'
+        run: make docker-up-store
+        shell: bash
+
+      - name: '[BUILD] | Syncronize Store'
+        run: yarn docker-up-orm
+        shell: bash
+
       - name: '[BUILD] | Compile'
         run: make build
         shell: bash
