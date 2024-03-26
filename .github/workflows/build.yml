@@ -9,6 +9,15 @@ jobs:
 
     steps:
       - uses: actions/checkout@v3
+
+      - name: '[BUILD] | Up Store'
+        run: make docker-up-store
+        shell: bash
+
+      - name: '[BUILD] | Syncronize Store'
+        run: make docker-up-orm
+        shell: bash
+
       - uses: actions/setup-go@v4
         with:
           go-version: '1.21.1'
@@ -21,14 +30,6 @@ jobs:
 
       - name: '[BUILD] | Install Dependencies'
         run: make download
-        shell: bash
-
-      - name: '[BUILD] | Up Store'
-        run: make docker-up-store
-        shell: bash
-
-      - name: '[BUILD] | Syncronize Store'
-        run: yarn docker-up-orm
         shell: bash
 
       - name: '[BUILD] | Compile'

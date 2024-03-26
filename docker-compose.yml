@@ -58,5 +58,5 @@ volumes:
 
 networks:
   go-api-store-network:
-    name: go-api
+    name: go-api-store
     driver: bridge
