@@ -5,7 +5,6 @@ import (
 	"go-api-store-boilerplate/src/application/api/presenters"
 
 	"github.com/gin-gonic/gin"
-	"gorm.io/gorm"
 )
 
 type HealthCheckController struct {
@@ -30,7 +29,6 @@ func (hc HealthCheckController) PostWebHook(ctx *gin.Context) {
 
 func Handler(
 	ginApp *gin.Engine,
-	db *gorm.DB,
 	jsonPresenter *presenters.JsonPresenter,
 ) {
 	healthCheckController := HealthCheckController{

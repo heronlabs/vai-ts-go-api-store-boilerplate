@@ -3,6 +3,7 @@ package tests
 import (
 	ConfigContexts "go-api-store-boilerplate/src/application/config/models/contexts"
 	"go-api-store-boilerplate/src/infrastructure/database"
+	dbCleanUp "go-api-store-boilerplate/tests/db"
 	"os"
 	"testing"
 
@@ -29,9 +30,9 @@ func setup() {
 
 	db = database.Connect(localConfig)
 
-	database.CleanUp(db)
+	dbCleanUp.Run(db)
 }
 
 func teardown() {
-	database.CleanUp(db)
+	dbCleanUp.Run(db)
 }

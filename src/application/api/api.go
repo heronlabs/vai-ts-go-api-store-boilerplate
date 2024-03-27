@@ -13,7 +13,7 @@ import (
 func Api(ginApp *gin.Engine, db *gorm.DB) {
 	jsonPresenter := &presenters.JsonPresenter{}
 
-	healthCheckController.Handler(ginApp, db, jsonPresenter)
+	healthCheckController.Handler(ginApp, jsonPresenter)
 	helloWorldController.Handler(ginApp, db, jsonPresenter)
 
 	fmt.Println("API OK!")
